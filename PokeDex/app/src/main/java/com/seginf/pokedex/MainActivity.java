@@ -14,6 +14,14 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
+
+
+
+
+
+
+
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText inputEditText;
@@ -22,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         inputEditText = (EditText) findViewById(R.id.inputEditText);
 
