@@ -14,14 +14,6 @@ import android.widget.Toast;
 import java.io.IOException;
 
 
-
-
-
-
-
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText inputEditText;

@@ -1,13 +1,4 @@
 package com.seginf.pokedex;
-import org.apache.commons.net.ftp.FTPClient;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.io.InputStream;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-
-
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -16,6 +7,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.InetAddress;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
