@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="mainBackground" type="color">#26A69A</item>
+    <item name="buttonColor" type="color">#00C853</item>
+    <item name="actionBarColor" type="color">#26C6DA</item>
+    <item name="white" type="color">#FFFFFF</item>
+
+</resources>

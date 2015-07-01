@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">ParentalControl</string>
+    <string name="add_profile">Add a Profile</string>
+    <string name="keep_call_log">Save call log</string>
+    <string name="track_my_kid">Enable GPS tracking</string>
+    <string name="presentation">Keep your children safe while they use their phone!</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 </resources>
