@@ -9,6 +9,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -67,6 +68,12 @@ public class CommandService extends Service {
         // needed because we are opening an activity from a service
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void vibrate() {
+        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
     }
 
     private void startRecording() throws InterruptedException {
