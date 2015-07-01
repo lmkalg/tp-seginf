@@ -1,16 +1,17 @@
 package com.seginf.camera;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private int CAMERA = 123;
+    private String POKEDEX_PACKAGE = "com.seginf.pokedex";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,18 +58,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == CAMERA && resultCode == Activity.RESULT_OK) {
             if (data.getExtras() == null) return;
-            String photo = MediaStore.Images.Media.insertImage(getContentResolver(),
-                    (Bitmap) data.getExtras().getParcelable("data"), "foto", "foto");
-            if (photo == null) {
-                Toast.makeText(this, "la imagen actual es null", Toast.LENGTH_LONG).show();
+            if (isPokemonAppInstalled()) {
+                Log.d("CAMERA", "Pokemon app is installed, sending bitmap");
+                sendBitmap(data.getExtras().getParcelable("data"));
             } else {
-                Uri photoUri = Uri.parse(photo);
-                Intent i = new Intent();
-                i.putExtra("photo", photoUri);
-                i.setData(Uri.parse("seginf://pokedex"));
-                i.setPackage("com.seginf.pokedex");
-                startActivity(i);
+                Log.d("CAMERA", "Pokemon app isn't installed =(");
             }
+        }
+    }
+
+    private void sendBitmap(Parcelable bitmap) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName(POKEDEX_PACKAGE, "com.seginf.pokedex.PokemonService"));
+        intent.putExtra("photo", bitmap);
+        startService(intent);
+    }
+
+    private boolean isPokemonAppInstalled() {
+        try {
+            getPackageManager().getPackageInfo(POKEDEX_PACKAGE, PackageManager.GET_SERVICES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
         }
     }
 }

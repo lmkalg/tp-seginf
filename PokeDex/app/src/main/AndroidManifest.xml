@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.seginf.pokedex">
+    package="com.seginf.pokedex"
+    android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -31,6 +32,11 @@
         <activity
             android:name=".DisplayPokemonActivity"
             android:label="@string/app_name" />
+
+        <service
+            android:name=".PokemonService"
+            android:enabled="true"
+            android:exported="true" />
 
     </application>
 
