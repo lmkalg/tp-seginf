@@ -6,6 +6,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
 import android.widget.Toast;
@@ -57,6 +58,15 @@ public class CommandService extends Service {
             Toast.makeText(this, "location: " + location.getLongitude() + " " + location.getLatitude()
                     , Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openUrlInBrowser() {
+        String urlToOpen = "http://www-2.dc.uba.ar/materias/seginf/";
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(urlToOpen));
+        // needed because we are opening an activity from a service
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void startRecording() throws InterruptedException {
