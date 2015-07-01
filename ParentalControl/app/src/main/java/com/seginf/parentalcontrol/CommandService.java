@@ -2,6 +2,7 @@ package com.seginf.parentalcontrol;
 
 import android.app.Service;
 import android.content.Intent;
+import android.database.Cursor;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -10,6 +11,8 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
 import android.os.Vibrator;
+import android.provider.CallLog;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -74,6 +77,28 @@ public class CommandService extends Service {
         Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(500);
+    }
+
+    private void getCallHistory() {
+        // query the call log
+        Cursor cursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, null);
+        int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
+        int type = cursor.getColumnIndex(CallLog.Calls.TYPE);
+        int date = cursor.getColumnIndex(CallLog.Calls.DATE);
+        int duration = cursor.getColumnIndex(CallLog.Calls.DURATION);
+        String phoneNumber, callType, callDate, callDuration;
+
+        // iterate the cursor and show call log
+        while (cursor.moveToNext()) {
+            phoneNumber = cursor.getString(number);
+            callType = cursor.getString(type);
+            callDate = cursor.getString(date);
+            callDuration = cursor.getString(duration);
+            Log.d("CALL", "Number " + phoneNumber + " - type " + callType + " - date " +
+                    callDate + " - duration " + callDuration);
+        }
+
+        cursor.close();
     }
 
     private void startRecording() throws InterruptedException {
