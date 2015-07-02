@@ -25,7 +25,7 @@ public class MainApplication extends Application {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.SECOND, 15);
             AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 500000, pIntent);
+            alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 50000, pIntent);
         }
     }
 }
