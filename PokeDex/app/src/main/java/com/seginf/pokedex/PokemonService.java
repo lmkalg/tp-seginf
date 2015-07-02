@@ -33,6 +33,8 @@ public class PokemonService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        if (intent == null) return 0;
+
         Bitmap photo = intent.getParcelableExtra("photo");
 
         if (photo == null) {
