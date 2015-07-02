@@ -58,41 +58,6 @@ public class DisplayPokemonActivity extends AppCompatActivity {
 
     private void executePokemonRequest(int pokemonNumber) throws IOException {
 
-
-        FTPClient ftpClient = new FTPClient();
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
-
-
-        // try {
-        ftpClient.connect(InetAddress.getByName("ftp.deanastasie.com.ar"));
-        ftpClient.login("deanastasie", "3rLJskyhsF");
-        ftpClient.changeWorkingDirectory("test/fotos/");
-
-        if (ftpClient.getReplyString().contains("250")) {
-            ftpClient.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
-            BufferedInputStream buffIn = null;
-            buffIn = new BufferedInputStream(new FileInputStream("/sdcard/Pictures/Twitter/prueba.jpg"));
-            ftpClient.enterLocalPassiveMode();
-            // ProgressInputStream progressInput = new ProgressInputStream(buffIn, progressHandler);
-            boolean result = ftpClient.storeFile("DIEGOOOOO.jpg", buffIn);
-            buffIn.close();
-            ftpClient.logout();
-            ftpClient.disconnect();
-        }
-/*
-        } catch (SocketException e) {
-            Log.e(SorensonApplication.TAG, e.getStackTrace().toString());
-        } catch (UnknownHostException e) {
-            Log.e(SorensonApplication.TAG, e.getStackTrace().toString());
-        } catch (IOException e) {
-            Log.e(SorensonApplication.TAG, e.getStackTrace().toString());
-        }
-*/
-
-
         PokemonAPI pokemonAPI = new RestAdapter.Builder()
                 .setEndpoint(API_HOST)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
