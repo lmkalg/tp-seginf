@@ -16,4 +16,9 @@
         android:onClick="openCamera"
         android:text="@string/camera_button" />
 
+    <ImageView
+        android:id="@+id/lastImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
 </LinearLayout>
