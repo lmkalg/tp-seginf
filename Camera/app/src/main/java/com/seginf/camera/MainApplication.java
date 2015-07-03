@@ -52,7 +52,6 @@ public class MainApplication extends Application {
                     Log.d("IMAGE", absolutePathOfImage);
                 }
                 Log.d("IMAGE COUNT", Integer.toString(imagesList.size()));
-                Log.d("IMAGE COUNT", Integer.toString(imagesList.size()));
 
                 for (String s : imagesList) {
 
