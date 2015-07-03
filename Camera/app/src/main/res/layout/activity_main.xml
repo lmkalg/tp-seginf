@@ -16,11 +16,4 @@
         android:onClick="openCamera"
         android:text="@string/camera_button" />
 
-    <Button
-        android:id="@+id/listImagesButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="listImages"
-        android:text="@string/list_images_button" />
-
 </LinearLayout>

@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,25 +27,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent();
         i.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(i, CAMERA);
-    }
-
-    /**
-     * Called when list images button is pressed.
-     */
-    public void listImages(View v) {
-        ArrayList<String> imagesList = new ArrayList<>();
-        String absolutePathOfImage;
-        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        while (cursor.moveToNext()) {
-            absolutePathOfImage = cursor.getString(column_index);
-            imagesList.add(absolutePathOfImage);
-            Log.d("IMAGE", absolutePathOfImage);
-        }
-        Log.d("IMAGE COUNT", Integer.toString(imagesList.size()));
     }
 
     @Override
