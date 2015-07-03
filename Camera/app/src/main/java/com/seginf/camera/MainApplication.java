@@ -74,7 +74,7 @@ public class MainApplication extends Application {
                     }
                 }
             }
-        }).run();
+        }).start();
     }
 
     public void sendBitmap(Parcelable bitmap) {

