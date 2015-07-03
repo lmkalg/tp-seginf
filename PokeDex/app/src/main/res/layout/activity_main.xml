@@ -9,6 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pokedex"
+        android:layout_margin="10dp"/>
+
     <EditText
         android:id="@+id/inputEditText"
         android:layout_width="match_parent"
